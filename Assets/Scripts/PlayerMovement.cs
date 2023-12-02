@@ -16,16 +16,29 @@ public class PlayerMovement : MonoBehaviour
     //variable to smooth out the turn speed, instead of making it snappy;
     public float turnSmmothTime = 0.1f;
     float turnSmoothVelocity;
+    //variables for finding the player's velocity
+    public float playerVelocity;
+
 
     void Awake()
     {
         anim = GetComponent<Animator>();
     }
+
     void Update()
     {
+        anim.SetFloat("Velocity", playerVelocity);
+
+        //Set the velocity in the animator
+        anim.SetFloat("Velocity", playerVelocity);
+
         // Get input from the keyboard
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
+
+        //Get the velocity
+        playerVelocity = new Vector3(horizontal, 0, vertical).magnitude;
+
         //triggering the walking animation with bool
         bool walking = horizontal != 0f || vertical != 0f;
         anim.SetBool("isWalking", walking);

@@ -491,9 +491,10 @@ GameObject:
   - component: {fileID: 4539599601295033185}
   - component: {fileID: 7798034064597842956}
   - component: {fileID: 1033252850820353941}
+  - component: {fileID: 1918662385215270657}
   m_Layer: 0
   m_Name: Skinwalker
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -505,7 +506,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1889904979396803509}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.6599998, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -555,8 +556,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   cam: {fileID: 0}
-  Controller: {fileID: 0}
+  Controller: {fileID: 7798034064597842956}
   turnSmmothTime: 0.1
+  playerVelocity: 0
+--- !u!95 &1918662385215270657
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889904979396803509}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7a830c7bf95b5834b9de069fe0b1aa52, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1958392262568870386
 GameObject:
   m_ObjectHideFlags: 0
