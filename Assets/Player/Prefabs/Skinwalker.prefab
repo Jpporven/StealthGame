@@ -556,6 +556,7 @@ MonoBehaviour:
   speed: 3
   cam: {fileID: 0}
   Controller: {fileID: 0}
+  animController: {fileID: 0}
   turnSmmothTime: 0.1
 --- !u!1 &1958392262568870386
 GameObject:

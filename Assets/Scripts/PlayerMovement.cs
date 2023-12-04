@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor.Animations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -13,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform cam;
     //player charater controller component
     public CharacterController Controller;
+    public AnimatorController animController;
     //variable to smooth out the turn speed, instead of making it snappy;
     public float turnSmmothTime = 0.1f;
     float turnSmoothVelocity;
@@ -62,6 +64,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
-
+    public void AnimSwap(GameObject victim)
+    {
+        anim = victim.GetComponent<Animator>();
+        anim.runtimeAnimatorController = animController;
+    }
 
 }

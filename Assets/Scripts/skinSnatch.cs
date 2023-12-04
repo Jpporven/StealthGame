@@ -7,7 +7,7 @@ public class skinSnatch : MonoBehaviour
     GameObject victim;
     GameObject[] victimsBody;
     GameObject[] playersBody;
-    //public PlayerMove playerMove;
+    public PlayerMovement playerMove;
 
     bool isDisgused = false;
     bool inVictimRange = false;
@@ -87,7 +87,7 @@ public class skinSnatch : MonoBehaviour
             }
             victim.transform.parent = transform;
             //Anim swap
-            //playerMove.AnimSwap(victim);
+            playerMove.AnimSwap(victim);
             isDisgused = true;
             inVictimRange = false;
             victimsBody = new GameObject[2];
@@ -97,13 +97,4 @@ public class skinSnatch : MonoBehaviour
             print("Victim Not in Range");
         }
     }
-    //Add This to player Movement Script
-    /*
-     * 
-         public void AnimSwap(GameObject victim)
-    {
-        Anim = victim.GetComponent<Animator>();
-        Anim.runtimeAnimatorController = controller;
-    }
-     */
 }
