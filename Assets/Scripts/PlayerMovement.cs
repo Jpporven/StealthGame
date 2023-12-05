@@ -66,12 +66,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             anim.SetBool("isRunning", true);
-            speed = 6f;
+            speed *= 2f;
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
             anim.SetBool("isRunning", false);
-            speed = 3f;
+            speed /= 2f;
         }
 
     }
