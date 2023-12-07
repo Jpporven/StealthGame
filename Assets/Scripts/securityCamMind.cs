@@ -33,7 +33,7 @@ public class securityCamMind : MonoBehaviour
 
     void Update()
     {
-        if (CanSeePlayer()) // player spotted
+        if (CanSeePlayer() && player.gameObject.tag == "Player") // player spotted
         {
             playerVisibleTimer += Time.deltaTime;
 

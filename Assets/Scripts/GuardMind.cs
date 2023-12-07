@@ -44,7 +44,7 @@ public class GuardMind : MonoBehaviour
 
     void Update ()
     {
-        if(CanSeePlayer ()) // player not spotted
+        if(CanSeePlayer () && player.gameObject.tag == "Player") // player not spotted
         {
             playerVisibleTimer += Time.deltaTime;
         }

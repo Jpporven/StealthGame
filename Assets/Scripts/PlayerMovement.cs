@@ -7,7 +7,8 @@ using Unity.VisualScripting;
 public class PlayerMovement : MonoBehaviour
 {
     //referencing the animator
-    Animator anim;
+    [HideInInspector]
+    public Animator anim;
     //player speed
     public float speed = 3f;
     //Camera gameobject
@@ -18,16 +19,30 @@ public class PlayerMovement : MonoBehaviour
     //variable to smooth out the turn speed, instead of making it snappy;
     public float turnSmmothTime = 0.1f;
     float turnSmoothVelocity;
+    //variables for finding the player's velocity
+    public float playerVelocity;
 
-    void Awake()
+
+    void Start()
     {
-        anim = GetComponent<Animator>();
+        anim = this.GetComponent<Animator>();
+        Controller = this.GetComponent<CharacterController>();
     }
+
     void Update()
     {
+        anim.SetFloat("Velocity", playerVelocity);
+
+        //Set the velocity in the animator
+        anim.SetFloat("Velocity", playerVelocity);
+
         // Get input from the keyboard
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
+
+        //Get the velocity
+        playerVelocity = new Vector3(horizontal, 0, vertical).magnitude;
+
         //triggering the walking animation with bool
         bool walking = horizontal != 0f || vertical != 0f;
         anim.SetBool("isWalking", walking);
@@ -55,15 +70,16 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             anim.SetBool("isRunning", true);
-            speed = 6f;
+            speed *= 2f;
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
             anim.SetBool("isRunning", false);
-            speed = 3f;
+            speed /= 2f;
         }
 
     }
+
     public void AnimSwap(GameObject victim)
     {
         anim = victim.GetComponent<Animator>();
