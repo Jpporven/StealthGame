@@ -2,37 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class skinSnatch : MonoBehaviour
 {
     GameObject victim;
-    GameObject[] victimsBody;
+    public GameObject[] possibleVictims;
+    Animator v_Animator;
     GameObject[] playersBody;
-    public PlayerMovement playerMove;
+    PlayerMovement playerMove;
+    int confirmedSkin;
 
     bool isDisgused = false;
     bool inVictimRange = false;
+    bool hasSkin;
+
     void Start()
     {
-        playersBody = new GameObject[2];
-        victimsBody = new GameObject[2];
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            playersBody[i] = transform.GetChild(i).gameObject;
-        }
+
+        startSkins();
+        playerMove = GetComponent<PlayerMovement>();
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             if (!isDisgused) skinSteal();
             else if (isDisgused && !inVictimRange)
             {
                 Destroy(victim);
                 revertSkin();
-                //playerMove.AnimSwap(this.gameObject);
+                this.gameObject.tag = "Player";
                 isDisgused = false;
-            }
-            else print("Cant Change in Others skin");     
+            } 
+            
         }  
     }
     private void OnTriggerEnter(Collider other)
@@ -40,9 +42,9 @@ public class skinSnatch : MonoBehaviour
         if(!isDisgused)
         {
             victim = other.transform.parent.gameObject;
-            if (other.name == "AmbushCollider")
+            checkSkins();
+            if (other.name == "AmbushCollider" && hasSkin)
             {
-                getVictimsBody(victim);
                 inVictimRange = true;
             }
         }
@@ -53,48 +55,65 @@ public class skinSnatch : MonoBehaviour
         if (other.name == "AmbushCollider")
         {
             inVictimRange=false;
-            victimsBody = new GameObject[2];
         }
     }
-    void getVictimsBody(GameObject victim)
+
+    void startSkins()
     {
+        playersBody = new GameObject[2];
         for (int i = 0; i < 2; i++)
         {
-            victimsBody[i] = victim.transform.GetChild(i).gameObject;
+            playersBody[i] = transform.GetChild(i).gameObject;
+        }
+        for (int i = 0; i < possibleVictims.Length; i++)
+        {
+            possibleVictims[i].SetActive(false);
+            
         }
     }
+
     void revertSkin()
     {
-        for (int i = 0; i < playersBody.Length; i++)
+        for (int i = 0; i < 2; i++)
         {
             playersBody[i].SetActive(true);
         }
     }
     void skinSteal()
     {
-        if(victim != null)
+        if (victim != null)
         {
-            Destroy(victim.transform.GetChild(2).gameObject);
-            for (int i = 0; i < victimsBody.Length; i++)
-            {
-                //Aligns Victim
-                victim.transform.position = new Vector3(transform.position.x, victim.transform.position.y, transform.position.z);
-                victim.transform.rotation = transform.rotation;
-            }
-            for (int i = 0; i < playersBody.Length; i++)
+            getVictimSkin();
+            for (int i = 0; i < 2; i++)
             {
                 playersBody[i].SetActive(false);
             }
-            victim.transform.parent = transform;
             //Anim swap
-            playerMove.AnimSwap(victim);
+            playerMove.anim = v_Animator;
             isDisgused = true;
             inVictimRange = false;
-            victimsBody = new GameObject[2];
         }
-        else
+    }
+    void checkSkins()
+    {
+        for (int i = 0; i < possibleVictims.Length; i++)
         {
-            print("Victim Not in Range");
+            if (victim.gameObject.tag == possibleVictims[i].gameObject.tag)
+            {
+                hasSkin = true;
+                confirmedSkin = i;
+                v_Animator = possibleVictims[confirmedSkin].GetComponent<Animator>();
+                return;
+            }
         }
+        hasSkin = false;
+    }
+    void getVictimSkin()
+    {
+        Destroy(victim);
+        victim = possibleVictims[confirmedSkin];
+        possibleVictims[confirmedSkin].SetActive(true);
+        this.gameObject.tag = victim.gameObject.tag;
+        return;
     }
 }

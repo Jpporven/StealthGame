@@ -7,14 +7,14 @@ using Unity.VisualScripting;
 public class PlayerMovement : MonoBehaviour
 {
     //referencing the animator
-    Animator anim;
+    [HideInInspector]
+    public Animator anim;
     //player speed
     public float speed = 3f;
     //Camera gameobject
     public Transform cam;
     //player charater controller component
-    public AnimatorController animController;
-    public CharacterController Controller;
+    CharacterController Controller;
     //variable to smooth out the turn speed, instead of making it snappy;
     public float turnSmmothTime = 0.1f;
     float turnSmoothVelocity;
@@ -22,9 +22,10 @@ public class PlayerMovement : MonoBehaviour
     public float playerVelocity;
 
 
-    void Awake()
+    void Start()
     {
-        anim = GetComponent<Animator>();
+        anim = this.GetComponent<Animator>();
+        Controller = this.GetComponent<CharacterController>();
     }
 
     void Update()
@@ -78,9 +79,9 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    public void AnimSwap(GameObject victim)
+    public void AnimSwap(GameObject victim, Animator v_anim)
     {
-        anim = victim.GetComponent<Animator>();
-        anim.runtimeAnimatorController = animController;
+        this.GetComponent<Animator>().enabled = false;
+        anim = v_anim;
     }
 }
