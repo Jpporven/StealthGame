@@ -704,8 +704,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2.25
   cam: {fileID: 0}
+  Controller: {fileID: 0}
   animController: {fileID: 0}
-  Controller: {fileID: 7798034064597842956}
   turnSmmothTime: 0.1
   playerVelocity: 0
 --- !u!95 &1918662385215270657
