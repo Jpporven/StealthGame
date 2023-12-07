@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2861650127613261492}
   - component: {fileID: 230735987583369208}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: FadeInAndOut
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
