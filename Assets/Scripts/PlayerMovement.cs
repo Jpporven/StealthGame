@@ -14,8 +14,7 @@ public class PlayerMovement : MonoBehaviour
     //Camera gameobject
     public Transform cam;
     //player charater controller component
-    public CharacterController Controller;
-    public AnimatorController animController;
+    CharacterController Controller;
     //variable to smooth out the turn speed, instead of making it snappy;
     public float turnSmmothTime = 0.1f;
     float turnSmoothVelocity;
@@ -80,10 +79,9 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    public void AnimSwap(GameObject victim)
+    public void AnimSwap(GameObject victim, Animator v_anim)
     {
-        anim = victim.GetComponent<Animator>();
-        anim.runtimeAnimatorController = animController;
+        this.GetComponent<Animator>().enabled = false;
+        anim = v_anim;
     }
-
 }

@@ -9,7 +9,6 @@ public class skinSnatch : MonoBehaviour
     public GameObject[] possibleVictims;
     Animator v_Animator;
     GameObject[] playersBody;
-
     PlayerMovement playerMove;
     int confirmedSkin;
 
@@ -91,9 +90,6 @@ public class skinSnatch : MonoBehaviour
             }
             //Anim swap
             playerMove.anim = v_Animator;
-
-            playerMove.AnimSwap(victim);
-
             isDisgused = true;
             inVictimRange = false;
         }
@@ -112,7 +108,6 @@ public class skinSnatch : MonoBehaviour
         }
         hasSkin = false;
     }
-
     void getVictimSkin()
     {
         Destroy(victim);
