@@ -172,7 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5059228480096455351}
   - component: {fileID: 6121432494079306582}
-  - component: {fileID: 1371662937356236577}
+  - component: {fileID: 7603816065397062740}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -188,7 +188,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5533377237580514985}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.0543, y: 0.016, z: -0.308}
+  m_LocalPosition: {x: -0.041, y: 0.016, z: -0.235}
   m_LocalScale: {x: 0.049673747, y: 0.033361886, z: 0.03548864}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -209,8 +209,8 @@ Light:
   m_Color: {r: 0.7028302, g: 0.9887116, b: 1, a: 1}
   m_Intensity: 11
   m_Range: 10
-  m_SpotAngle: 90
-  m_InnerSpotAngle: 1
+  m_SpotAngle: 135
+  m_InnerSpotAngle: 60
   m_CookieSize: 10
   m_Shadows:
     m_Type: 1
@@ -257,7 +257,7 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &1371662937356236577
+--- !u!114 &7603816065397062740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
