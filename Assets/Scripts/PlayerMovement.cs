@@ -20,7 +20,10 @@ public class PlayerMovement : MonoBehaviour
     float turnSmoothVelocity;
     //variables for finding the player's velocity
     public float playerVelocity;
-
+    [HideInInspector]
+    public bool walking;
+    [HideInInspector]
+    public bool runing;
 
     void Start()
     {
@@ -43,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
         playerVelocity = new Vector3(horizontal, 0, vertical).magnitude;
 
         //triggering the walking animation with bool
-        bool walking = horizontal != 0f || vertical != 0f;
+        walking = horizontal != 0f || vertical != 0f;
         anim.SetBool("isWalking", walking);
         running();
 
@@ -70,18 +73,14 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetBool("isRunning", true);
             speed *= 2f;
+            runing = true;
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
             anim.SetBool("isRunning", false);
             speed /= 2f;
+            runing = false;
         }
 
-    }
-
-    public void AnimSwap(GameObject victim, Animator v_anim)
-    {
-        this.GetComponent<Animator>().enabled = false;
-        anim = v_anim;
     }
 }

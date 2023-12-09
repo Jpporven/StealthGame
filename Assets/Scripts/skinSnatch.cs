@@ -1,20 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
-
+using UnityEngine.AI;
 
 public class skinSnatch : MonoBehaviour
 {
     GameObject victim;
+    GameObject v_Collider;
     public GameObject[] possibleVictims;
+    public disableVictim disabler;
     Animator v_Animator;
     GameObject[] playersBody;
     PlayerMovement playerMove;
+    public playerAnimManager p_AnimManager;
+    
     int confirmedSkin;
 
     bool isDisgused = false;
     bool inVictimRange = false;
     bool hasSkin;
+    bool victimDied = false;
 
     void Start()
     {
@@ -26,26 +32,47 @@ public class skinSnatch : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (!isDisgused) skinSteal();
-            else if (isDisgused && !inVictimRange)
+            //he attacks
+            if (!victimDied && !isDisgused && inVictimRange && !playerAnimManager.isReverting && !playerAnimManager.isTransforming && !playerMove.runing && !playerMove.walking) skinSteal();
+            else if (isDisgused && !inVictimRange && !playerAnimManager.isAttacking && !playerAnimManager.isTransforming && !playerMove.runing && !playerMove.walking)
             {
-                Destroy(victim);
-                revertSkin();
                 this.gameObject.tag = "Player";
                 isDisgused = false;
-            } 
-            
-        }  
+                playerMove.anim = GetComponent<Animator>();
+                p_AnimManager.skinRevertAnim(v_Animator, playerMove.anim, victim, playersBody);                
+            }
+
+        }
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            if(victimDied && !playerAnimManager.isReverting && !playerAnimManager.isAttacking && !playerMove.runing && !playerMove.walking)
+            {
+                takeSkin();
+            }
+            else
+            {
+                print("All Needs to be true");
+                print(victimDied);
+                print(!playerAnimManager.isReverting);
+                print(!playerAnimManager.isAttacking);
+            }
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
         if(!isDisgused)
         {
             victim = other.transform.parent.gameObject;
+            v_Collider = other.gameObject.transform.GetChild(0).gameObject;
             checkSkins();
             if (other.name == "AmbushCollider" && hasSkin)
             {
-                inVictimRange = true;
+
+                if(victim.GetComponent<Animator>().GetBool("isDead"))
+                {
+                    victimDied = true;
+                }
+                else inVictimRange = true;
             }
         }
 
@@ -55,6 +82,8 @@ public class skinSnatch : MonoBehaviour
         if (other.name == "AmbushCollider")
         {
             inVictimRange=false;
+            StartCoroutine(delayCheck());
+
         }
     }
 
@@ -72,27 +101,25 @@ public class skinSnatch : MonoBehaviour
         }
     }
 
-    void revertSkin()
-    {
-        for (int i = 0; i < 2; i++)
-        {
-            playersBody[i].SetActive(true);
-        }
-    }
     void skinSteal()
     {
         if (victim != null)
         {
-            getVictimSkin();
-            for (int i = 0; i < 2; i++)
-            {
-                playersBody[i].SetActive(false);
-            }
-            //Anim swap
-            playerMove.anim = v_Animator;
-            isDisgused = true;
+
+            Animator victimAnim = victim.GetComponent<Animator>();
+            disabler.cripple(confirmedSkin, victim);
+            p_AnimManager.skinStealAnim(victim, victimAnim, playerMove.anim, v_Collider);
+
             inVictimRange = false;
+            victimDied = true;
         }
+    }
+    void takeSkin()
+    {
+        v_Animator.runtimeAnimatorController = playerMove.anim.runtimeAnimatorController;
+        p_AnimManager.skinSwapAnim(playersBody, victim, possibleVictims[confirmedSkin], v_Animator);
+        victim = possibleVictims[confirmedSkin];
+        isDisgused = true;
     }
     void checkSkins()
     {
@@ -108,12 +135,10 @@ public class skinSnatch : MonoBehaviour
         }
         hasSkin = false;
     }
-    void getVictimSkin()
+    IEnumerator delayCheck()
     {
-        Destroy(victim);
-        victim = possibleVictims[confirmedSkin];
-        possibleVictims[confirmedSkin].SetActive(true);
-        this.gameObject.tag = victim.gameObject.tag;
-        return;
+        yield return new WaitForSeconds(2);
+        if (!playerAnimManager.isAttacking && !inVictimRange) victimDied = false;
     }
+
 }
