@@ -11059,6 +11059,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7837501052369399583, guid: 893f3ff4401fc7e4497cbe6b09a02d28, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 15cb3d562a1ce4e13a83205b0bfe25d8, type: 2}
     - target: {fileID: 9177617858054296597, guid: 893f3ff4401fc7e4497cbe6b09a02d28, type: 3}
       propertyPath: m_Name
       value: Surgeon
