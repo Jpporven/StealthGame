@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Guard
   - Scientist
-  - Default
   layers:
   - Default
   - TransparentFX

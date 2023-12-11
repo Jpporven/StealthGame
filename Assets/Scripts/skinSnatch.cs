@@ -33,13 +33,13 @@ public class skinSnatch : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             //he attacks
-            if (!victimDied && !isDisgused && inVictimRange && !playerAnimManager.isReverting && !playerAnimManager.isTransforming && !playerMove.runing && !playerMove.walking) skinSteal();
+            if (!victimDied && !isDisgused && inVictimRange && !playerAnimManager.isReverting && !playerAnimManager.isTransforming && !playerMove.runing && !playerMove.walking) { skinSteal(); victim.GetComponent<GuardManager>().KillGuard(); }
             else if (isDisgused && !inVictimRange && !playerAnimManager.isAttacking && !playerAnimManager.isTransforming && !playerMove.runing && !playerMove.walking)
             {
                 this.gameObject.tag = "Player";
                 isDisgused = false;
                 playerMove.anim = GetComponent<Animator>();
-                p_AnimManager.skinRevertAnim(v_Animator, playerMove.anim, victim, playersBody);                
+                p_AnimManager.skinRevertAnim(v_Animator, playerMove.anim, victim, playersBody);
             }
 
         }

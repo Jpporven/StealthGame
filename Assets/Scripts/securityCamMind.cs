@@ -54,8 +54,6 @@ public class securityCamMind : MonoBehaviour
 
             anim.enabled = false;
 
-            playerSpotted = true;
-
             StopAllCoroutines();
         }
 
@@ -80,6 +78,8 @@ public class securityCamMind : MonoBehaviour
 
     void RotateTowardsTarget()
     {
+        playerSpotted = true;
+
         // Get the direction to the target
         Vector3 directionToTarget = player.position - transform.position;
 

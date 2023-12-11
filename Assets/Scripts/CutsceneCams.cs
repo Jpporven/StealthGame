@@ -58,7 +58,7 @@ public class CutsceneCams : MonoBehaviour
 
     void scenechange()
     {
-        SceneManager.LoadScene("Lvl1");
+        SceneManager.LoadScene("Lvl12");
     }
 
     IEnumerator ActivateCam(int a)

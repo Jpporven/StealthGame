@@ -38,6 +38,12 @@ public class GuardManager : MonoBehaviour
         previousPosition = transform.position;
         lastUpdateTime = Time.time;
 
+        if(Vector3.Distance(transform.position, guardPatrol.targetWaypoint) <= 1)
+        {
+            velocity = 0;
+            currentVelocity = new Vector3(0, 0, 0);
+        }
+
         if(velocity <= 0.1f && isShooting)
         {
             muzzleFlash.SetActive(true);
@@ -46,6 +52,15 @@ public class GuardManager : MonoBehaviour
         {
             muzzleFlash.SetActive(false);
         }
+    }
+
+    public void KillGuard()
+    {
+        guardFollow.enabled = false;
+        guardPatrol.enabled = false;
+        guardShoot.enabled = false;
+
+        guardPatrol.spotLight.enabled = false;
     }
 
     public void FollowPlayer()

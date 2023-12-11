@@ -26,6 +26,10 @@ public class GuardMind : MonoBehaviour
 
     public GuardManager guard;
 
+    [SerializeField]
+    public Vector3 targetWaypoint;
+
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -88,7 +92,7 @@ public class GuardMind : MonoBehaviour
         transform.position = waypoints[0];
 
         int targetWaypointIndex = 1;
-        Vector3 targetWaypoint = waypoints[targetWaypointIndex];
+        targetWaypoint = waypoints[targetWaypointIndex];
         transform.LookAt(targetWaypoint);
 
         while(true)
